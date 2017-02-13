@@ -15,7 +15,8 @@ $(document).ready(function() {
     var todoInput = $("#todo-item").val();
 
     $("#todo").hide();
-    $("body").append("<div>" + "<h1>" + todoInput + "</h1>" + "</div>");
+    $("#tab-prompt").hide();
+    $("body").append("<div>" + "<h1 style='color:white'>" + todoInput + "</h1>" + "</div>");
     // $("body").css("background-image", "url(https://source.unsplash.com/1600x900/?mountain)");
     $("title").text(todoInput);
 
