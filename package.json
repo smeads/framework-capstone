@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/smeads/framework-capstone/issues"
   },
-  "homepage": "https://github.com/smeads/framework-capstone#readme"
+  "homepage": "https://github.com/smeads/framework-capstone#readme",
+  "dependencies": {
+    "unsplash-js": "^4.5.0"
+  }
 }
