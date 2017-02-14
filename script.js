@@ -19,8 +19,33 @@ $(document).ready(function() {
   $("#pwd").hide();
   $("#todo").hide();
 
-  // chrome.identity.getAuthToken({ 'interactive': false }, function(token) {
-  //   console.log(token);
+  chrome.identity.getAuthToken({ interactive: true }, function(token) {
+    if (chrome.runtime.lastError) {
+        alert(chrome.runtime.lastError.message);
+        return;
+    }
+    var objReq = new XMLHttpRequest();
+    objReq.open('GET', 'https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=' + token);
+    objReq.onload = function() {
+      var userInfo = JSON.parse(objReq.response);
+        console.log(userInfo.family_name);
+    };
+    objReq.send();
+  });
+
+  // chrome.identity.getProfileUserInfo(function(userInfo) {
+  //   console.log(userInfo.id);
+  //   var userId = JSON.stringify(userInfo.id);
+  //   console.log(userId);
+  //
+  //   $.ajax({
+  //     url: 'https://www.googleapis.com/gmail/v1/users/' + userId +'/profile',
+  //     type: 'GET',
+  //     data: 'json',
+  //     success: function(data) {
+  //       console.log(data);
+  //     }
+  //   })
   // });
 
   // User input name
@@ -60,11 +85,16 @@ $(document).ready(function() {
     $("#tab-prompt").hide();
     $("#header").text(todoInput);
     $("title").text(todoInput);
-    $("#main").append("<form>" + "<button type='submit' class='btn btn-primary' id='btn-complete'>" + "Completed" + "</button>" + "</form>");
+    $("#main").append(
+      "<form>" +
+        "<button type='submit' class='btn btn-primary' id='btn-complete'>" +
+          "Completed" +
+        "</button>" +
+      "</form>"
+    );
 
   });
   // Tab completed
-  console.log($("#btn-complete"));
   $("#btn-complete").on('click', function(event) {
     event.preventDefault();
     console.log(event);
