@@ -9,16 +9,61 @@
 $(document).ready(function() {
   var todoItem = $("#todo-item");
   var url = 'https://api.unsplash.com/';
+  var userLogin = {
+    name: "",
+    email: "",
+    password: ""
+  }
 
+  $("#email").hide();
+  $("#pwd").hide();
+  $("#todo").hide();
+
+  // User input name
+  $("#name").keypress(function (e) {
+   var key = e.which;
+   if(key === 13) {
+      $("#name").hide();
+      $("#tab-prompt").text("Please enter your EMAIL!")
+      $("#email").show();
+    }
+  });
+  // User input email
+  $("#email").keypress(function (e) {
+   var key = e.which;
+   if(key === 13) {
+      $("#email").hide();
+      $("#tab-prompt").text("Please enter a password!")
+      $("#pwd").show();
+    }
+  });
+  // User input password
+  $("#pwd").keypress(function (e) {
+   var key = e.which;
+   if(key === 13) {
+      $("#pwd").hide();
+      $("#header").text("TabIt!");
+      $("#tab-prompt").text("Hi Sam, what would you like to tab?")
+      $("#todo").show();
+    }
+  });
+  // User input new todo
   $("#todo").submit(function(event) {
     event.preventDefault();
     var todoInput = $("#todo-item").val();
 
     $("#todo").hide();
     $("#tab-prompt").hide();
-    $("body").append("<div>" + "<h1 style='color:white'>" + todoInput + "</h1>" + "</div>");
+    $("#main").append("<div id='complete'>" + "<h1 style='color:white'>" + todoInput + "</h1>" + "</div>");
+    $("#complete").append("<button class='btn btn-primary' id='btn-complete'>" + "Completed" + "</button>");
     // $("body").css("background-image", "url(https://source.unsplash.com/1600x900/?mountain)");
     $("title").text(todoInput);
 
   });
+  // Tab completed
+  $("#btn-complete").click(function(event) {
+    console.log(event);
+    $("#complete").hide();
+    $("#main").append("<div id='success'>" + "<h1 style='color:white'>" + "Way to go, and keep it up!" + "</h1>" + "</div>")
+  })
 });
