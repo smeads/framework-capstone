@@ -19,6 +19,10 @@ $(document).ready(function() {
   $("#pwd").hide();
   $("#todo").hide();
 
+  chrome.identity.getAuthToken({ 'interactive': false }, function(token) {
+    console.log(token);
+  });
+
   // User input name
   $("#name").keypress(function (e) {
    var key = e.which;

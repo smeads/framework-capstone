@@ -11,6 +11,13 @@
     "newtab": "index.html"
   },
   "permissions": [
-    "tabs"
-  ]
+    "tabs",
+    "identity"
+  ],
+  "oauth2": {
+    "client_id": "871378121131-v1bmbhbmvhocuqi27se5icnvcjf08fna.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive"
+    ]
+  }
 }
