@@ -54,10 +54,9 @@ $(document).ready(function() {
 
     $("#todo").hide();
     $("#tab-prompt").hide();
-    $("#main").append("<div id='complete'>" + "<h1 style='color:white'>" + todoInput + "</h1>" + "</div>");
-    $("#complete").append("<button class='btn btn-primary' id='btn-complete'>" + "Completed" + "</button>");
-    // $("body").css("background-image", "url(https://source.unsplash.com/1600x900/?mountain)");
+    $("#header").text(todoInput);
     $("title").text(todoInput);
+    $("#main").append("<button class='btn btn-primary' id='btn-complete'>" + "Completed" + "</button>");
 
   });
   // Tab completed
