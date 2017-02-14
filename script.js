@@ -19,9 +19,9 @@ $(document).ready(function() {
   $("#pwd").hide();
   $("#todo").hide();
 
-  chrome.identity.getAuthToken({ 'interactive': false }, function(token) {
-    console.log(token);
-  });
+  // chrome.identity.getAuthToken({ 'interactive': false }, function(token) {
+  //   console.log(token);
+  // });
 
   // User input name
   $("#name").keypress(function (e) {
@@ -60,13 +60,14 @@ $(document).ready(function() {
     $("#tab-prompt").hide();
     $("#header").text(todoInput);
     $("title").text(todoInput);
-    $("#main").append("<button class='btn btn-primary' id='btn-complete'>" + "Completed" + "</button>");
+    $("#main").append("<form>" + "<button type='submit' class='btn btn-primary' id='btn-complete'>" + "Completed" + "</button>" + "</form>");
 
   });
   // Tab completed
-  $("#btn-complete").click(function(event) {
+  console.log($("#btn-complete"));
+  $("#btn-complete").on('click', function(event) {
+    event.preventDefault();
     console.log(event);
-    $("#complete").hide();
-    $("#main").append("<div id='success'>" + "<h1 style='color:white'>" + "Way to go, and keep it up!" + "</h1>" + "</div>")
-  })
+    window.top.close();
+  });
 });
