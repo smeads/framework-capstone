@@ -14,11 +14,10 @@ $(document).ready(function() {
     email: "",
     password: ""
   }
-
-  $("#email").hide();
-  $("#pwd").hide();
   $("#todo").hide();
 
+$("#signin-btn").click(function() {
+  // Chrome OAuth
   chrome.identity.getAuthToken({ interactive: true }, function(token) {
     if (chrome.runtime.lastError) {
         alert(chrome.runtime.lastError.message);
@@ -28,61 +27,24 @@ $(document).ready(function() {
     objReq.open('GET', 'https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=' + token);
     objReq.onload = function() {
       var userInfo = JSON.parse(objReq.response);
-        console.log(userInfo.family_name);
+      var userName = userInfo.given_name;
+
+      $("#signin").hide();
+      $("#todo").show();
+      $("#header").text("TabIt!");
+      $("#header").after("<p id='user-greet'>" + "Hello " + userName + ", " + "what would you like to tab?" + "</p>" );
     };
     objReq.send();
   });
+});
 
-  // chrome.identity.getProfileUserInfo(function(userInfo) {
-  //   console.log(userInfo.id);
-  //   var userId = JSON.stringify(userInfo.id);
-  //   console.log(userId);
-  //
-  //   $.ajax({
-  //     url: 'https://www.googleapis.com/gmail/v1/users/' + userId +'/profile',
-  //     type: 'GET',
-  //     data: 'json',
-  //     success: function(data) {
-  //       console.log(data);
-  //     }
-  //   })
-  // });
-
-  // User input name
-  $("#name").keypress(function (e) {
-   var key = e.which;
-   if(key === 13) {
-      $("#name").hide();
-      $("#tab-prompt").text("Please enter your EMAIL!")
-      $("#email").show();
-    }
-  });
-  // User input email
-  $("#email").keypress(function (e) {
-   var key = e.which;
-   if(key === 13) {
-      $("#email").hide();
-      $("#tab-prompt").text("Please enter a password!")
-      $("#pwd").show();
-    }
-  });
-  // User input password
-  $("#pwd").keypress(function (e) {
-   var key = e.which;
-   if(key === 13) {
-      $("#pwd").hide();
-      $("#header").text("TabIt!");
-      $("#tab-prompt").text("Hi Sam, what would you like to tab?")
-      $("#todo").show();
-    }
-  });
   // User input new todo
   $("#todo").submit(function(event) {
     event.preventDefault();
     var todoInput = $("#todo-item").val();
 
     $("#todo").hide();
-    $("#tab-prompt").hide();
+    $("#user-greet").hide();
     $("#header").text(todoInput);
     $("title").text(todoInput);
     $("#main").append(
@@ -92,7 +54,6 @@ $(document).ready(function() {
         "</button>" +
       "</form>"
     );
-
   });
   // Tab completed
   $("#btn-complete").on('click', function(event) {
